@@ -1,0 +1,7 @@
+<!-- Custom head -->
+
+<!-- SEO keywords -->
+{{- $keywords := .Keywords -}}
+{{- with $keywords -}}
+<meta name="keywords" content='{{ delimit . ", " }}' />
+{{- end -}}

@@ -1,0 +1,54 @@
+name: Deploy
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  TZ: Asia/Shanghai
+
+concurrency:
+  group: "deploy"
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+          fetch-depth: 0
+
+      - name: Preset
+        run: |
+          chmod a+x ./hugo
+
+      - name: Build
+        run: |
+          ./hugo --gc -v --minify
+
+      - name: Upload to pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public/
+
+      - name: Deploy to pages
+        uses: actions/deploy-pages@v4
+
+         
