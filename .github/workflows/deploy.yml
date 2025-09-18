@@ -38,6 +38,9 @@ jobs:
       - name: Preset
         run: |
           chmod a+x ./hugo
+          mv hugo /usr/bin
+          npm install
+          npm run build
 
       - name: Build
         run: |
