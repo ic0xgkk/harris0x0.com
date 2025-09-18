@@ -35,16 +35,12 @@ jobs:
           submodules: true
           fetch-depth: 0
 
-      - name: Preset
+      - name: Build
         run: |
           export PATH="$PATH:${{ github.workspace }}"
           chmod a+x hugo
           npm install
           npm run build
-
-      - name: Build
-        run: |
-          ./hugo --gc --minify
 
       - name: Upload to pages
         uses: actions/upload-pages-artifact@v3
