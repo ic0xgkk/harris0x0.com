@@ -37,8 +37,8 @@ jobs:
 
       - name: Preset
         run: |
-          chmod a+x ./hugo
-          mv hugo /usr/bin
+          export PATH="$PATH:${{ github.workspace }}"
+          chmod a+x hugo
           npm install
           npm run build
 
